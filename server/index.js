@@ -1,13 +1,13 @@
 import express from 'express'
 import path from 'path'
-import { fileURLToPath } from 'url';
+import { URL } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = new URL('.', import.meta.url).pathname
 
 const app = express();
 
 app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, '../index.html'))
+    res.sendFile(new URL('../index.html', import.meta.url).pathname)
 })
 
 const port = process.env.PORT || 4040;

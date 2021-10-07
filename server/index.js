@@ -1,9 +1,8 @@
 import express from 'express'
 import path from 'path'
-import { URL, fileURLToPath, pathToFileURL } from 'url';
+import { URL, fileURLToPath } from 'url';
 
 const __dirname = new URL('.', import.meta.url).pathname
-const __filename = fileURLToPath(import.meta.url);
 
 const app = express();
 
@@ -11,7 +10,9 @@ app.get('/', (req,res) => {
     res.sendFile(new URL('../index.html', import.meta.url).pathname)
 })
 
-app.use('/css', express.static(path.join(__dirname, '../index.css')))
+app.get('/css', (req,res) => {
+    res.sendFile(new URL('../index.css', import.meta.url).pathname)
+})
 
 const port = process.env.PORT || 4040;
 
